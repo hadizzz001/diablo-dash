@@ -24,6 +24,8 @@ export async function POST(req) {
       landing,
       profitAmount,
       date,
+      sub,
+      factory,
     } = body;
 
     console.log("body are: ", body);
@@ -50,7 +52,8 @@ export async function POST(req) {
         landing,
         profitAmount,
         date,
-
+      sub,
+      factory,
       },
     });
 
