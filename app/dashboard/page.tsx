@@ -150,7 +150,7 @@ export default function ProductTable() {
         <thead>
           <tr className="bg-gray-100">
             <th className="border p-2">Title</th>
-            <th className="border p-2">Pic</th>
+            {/* <th className="border p-2">Pic</th> */}
             <th className="border p-2">Discount (USD)</th>
             <th className="border p-2">Category</th>
             <th className="border p-2">Type</th>
@@ -214,7 +214,7 @@ export default function ProductTable() {
               <tr key={product.id} className={rowClass}>
 
                 <td className="border p-2">{product.title}</td>
-                <td className="border p-2">
+                {/* <td className="border p-2">
                   {isVideo ? (
                     <video controls className="w-24 h-auto">
                       <source src={fileUrl} type="video/mp4" />
@@ -223,7 +223,7 @@ export default function ProductTable() {
                   ) : (
                     <img src={fileUrl} alt="Product" className="w-24 h-auto" />
                   )}
-                </td>
+                </td> */}
                 <td className="border p-2">
                   {product.type === 'single' || (product.type === 'collection' && !product.color)
                     ? (`$${product.discount}`)
