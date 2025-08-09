@@ -39,9 +39,9 @@ model Category {
 }
 
 model Sub {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  name     String   @unique 
-  img      String[]
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  name String   @unique
+  img  String[]
 }
 
 model Factory {
@@ -77,4 +77,9 @@ model Review {
   name        String
   description String
   date        DateTime @default(now()) @db.Date
+}
+
+model Banner {
+  id  String   @id @default(auto()) @map("_id") @db.ObjectId
+  img String[]
 }

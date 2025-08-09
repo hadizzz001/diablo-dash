@@ -55,6 +55,11 @@ export default function Sidebar() {
               </a>
             </li>    
             <li>
+              <a href="/banner" style={{ color: "white", textDecoration: "none" }}>
+                Edit Banner
+              </a>
+            </li>    
+            <li>
               <a href="/offer" style={{ color: "white", textDecoration: "none" }}>
                 Add Code
               </a>
