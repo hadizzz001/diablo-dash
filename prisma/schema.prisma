@@ -84,3 +84,15 @@ model Banner {
   img String[]
   name        String?
 }
+
+
+model Banner1 {
+  id  String   @id @default(auto()) @map("_id") @db.ObjectId 
+  name        Json
+}
+
+model Banner2 {
+  id  String   @id @default(auto()) @map("_id") @db.ObjectId 
+  name        String
+  off        String
+}
