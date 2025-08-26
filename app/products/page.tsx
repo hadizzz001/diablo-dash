@@ -19,7 +19,7 @@ export default function AddProduct() {
   const [selectedsubCategory, setSelectedsubCategory] = useState('');
   const [factoryOptions, setFactoryOptions] = useState([]);
   const [selectedFactory, setSelectedFactory] = useState('');
-  const [productType, setProductType] = useState('single');
+  const [productType, setProductType] = useState('collection');
   const [selectedColors, setSelectedColors] = useState([]);
   const [colorQuantities, setColorQuantities] = useState({});
   const [colorSizes, setColorSizes] = useState({}); 
@@ -319,7 +319,7 @@ export default function AddProduct() {
 
 
 
-      <input
+      {/* <input
         type="number"
         step="0.01"
         placeholder="Price"
@@ -327,18 +327,18 @@ export default function AddProduct() {
         onChange={(e) => setPrice(e.target.value)}
         className="w-full border p-2 mb-4"
         required
-      />
+      /> */}
 
 
       
-<input
+{/* <input
   type="number"
   step="0.01"
   placeholder="Discounted"
   value={discount}
   onChange={(e) => setDiscount(e.target.value)}
   className="w-full border p-2 mb-4"
-/>
+/> */}
 
 
 
@@ -351,7 +351,7 @@ export default function AddProduct() {
       <div className="mb-4">
         <label className="block text-lg font-bold mb-2">Product Type</label>
         <div className="flex space-x-4">
-          <label className="flex items-center space-x-2">
+          {/* <label className="flex items-center space-x-2">
             <input
               type="radio"
               value="single"
@@ -359,7 +359,7 @@ export default function AddProduct() {
               onChange={() => setProductType('single')}
             />
             <span>1 Item</span>
-          </label>
+          </label> */}
           <label className="flex items-center space-x-2">
             <input
               type="radio"
@@ -403,7 +403,7 @@ export default function AddProduct() {
                   {selectedColors.includes(color) && (
                     <div className="space-y-2">
                       {/* Color-level quantity (only if no sizes) */}
-                      {!(colorQuantities[color]?.sizes && Object.keys(colorQuantities[color].sizes).length > 0) && (
+                      {/* {!(colorQuantities[color]?.sizes && Object.keys(colorQuantities[color].sizes).length > 0) && (
                         <input
                           type="number"
                           placeholder="Qty"
@@ -421,7 +421,7 @@ export default function AddProduct() {
                           }
                           className="border px-2 py-1 w-20"
                         />
-                      )}
+                      )} */}
 
                       {/* Add size button */}
                       <button

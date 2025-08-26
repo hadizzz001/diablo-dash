@@ -329,7 +329,7 @@ function EditProductForm({ product, onCancel, onSave }) {
   const [stock, setStock] = useState(product.stock || "0");
   const [img, setImg] = useState(product.img || []);
   const [description, setDescription] = useState(product.description);
-  const [type, setType] = useState(product.type || "single");
+  const [type, setType] = useState(product.type || "collection");
   const [price, setPrice] = useState(product.price);
   const [discount, setDiscount] = useState(product.discount);
   const [categories, setCategories] = useState([]);
@@ -396,42 +396,61 @@ function EditProductForm({ product, onCancel, onSave }) {
 
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    onSave({
-      ...product,
-      title,
-      description,
-      price: Number(price).toFixed(2),
-      discount: Number(discount).toFixed(2),
-      img,
-      category: selectedCategory,
-      sub: selectedCategory1,
-      factory: selectedCategory2,
-      type,
-      ...(type === 'single' && { stock: stock }),
-      ...(type === 'collection' && {
-        color: Object.entries(selectedColors).map(([colorName, data]) => {
-          const { qty, sizes } = data;
-          const hasSizes = sizes && Object.keys(sizes).length > 0;
-          return hasSizes
-            ? {
-              color: colorName,
-              sizes: Object.entries(sizes).map(([size, values]) => ({
-                size: values.size,
-                price: Number(values.price),
-                qty: Number(values.qty)
-              }))
-            }
-            : {
-              color: colorName,
-              qty: Number(qty)
-            };
-        })
+  // ✅ Validation for collection type
+  if (type === "collection") {
+    for (const [colorName, data] of Object.entries(selectedColors)) {
+      const { sizes } = data;
+
+      // Force at least 1 size
+      if (!sizes || Object.keys(sizes).length === 0) {
+        alert(`Color "${colorName}" must have at least 1 size`);
+        return;
+      }
+
+      // Check each size has price & qty
+      for (const [sizeName, sizeData] of Object.entries(sizes)) {
+        if (!sizeData.price || sizeData.price <= 0) {
+          alert(`Size "${sizeName}" of color "${colorName}" must have a valid price`);
+          return;
+        }
+        if (!sizeData.qty || sizeData.qty <= 0) {
+          alert(`Size "${sizeName}" of color "${colorName}" must have a valid quantity`);
+          return;
+        }
+      }
+    }
+  }
+
+  // ✅ If validation passes, continue saving
+  onSave({
+    ...product,
+    title,
+    description,
+    price: Number(price).toFixed(2),
+    discount: Number(discount).toFixed(2),
+    img,
+    category: selectedCategory,
+    sub: selectedCategory1,
+    factory: selectedCategory2,
+    type,
+    ...(type === 'single' && { stock: stock }),
+    ...(type === 'collection' && {
+      color: Object.entries(selectedColors).map(([colorName, data]) => {
+        return {
+          color: colorName,
+          sizes: Object.entries(data.sizes).map(([size, values]) => ({
+            size: values.size,
+            price: Number(values.price),
+            qty: Number(values.qty)
+          }))
+        };
       })
-    });
-  };
+    })
+  });
+};
 
 
 
@@ -524,7 +543,7 @@ function EditProductForm({ product, onCancel, onSave }) {
 
 
 
-
+{/* 
       <div className="mt-4">
         <label className="text-sm font-bold">Price</label>
         <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full border p-2 mb-2" />
@@ -534,7 +553,7 @@ function EditProductForm({ product, onCancel, onSave }) {
         <label className="text-sm font-bold">Discount</label>
         <input type="number" value={discount} onChange={(e) => setDiscount(e.target.value)} className="w-full border p-2 mb-2" />
 
-      </div>
+      </div> */}
 
 
 
@@ -542,7 +561,7 @@ function EditProductForm({ product, onCancel, onSave }) {
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1">Product Type</label>
         <div className="flex gap-4">
-          <label className="flex items-center gap-2">
+          {/* <label className="flex items-center gap-2">
             <input
               type="radio"
               name="type"
@@ -551,7 +570,7 @@ function EditProductForm({ product, onCancel, onSave }) {
               onChange={() => setType("single")}
             />
             Single
-          </label>
+          </label> */}
           <label className="flex items-center gap-2">
             <input
               type="radio"
@@ -613,7 +632,7 @@ function EditProductForm({ product, onCancel, onSave }) {
                   {isSelected && (
                     <div className="ml-6 space-y-2">
                       {/* Show quantity input if no sizes */}
-                      {!hasSizes && (
+                      {/* {!hasSizes && (
                         <input
                           type="number"
                           min={0}
@@ -622,7 +641,7 @@ function EditProductForm({ product, onCancel, onSave }) {
                           value={isSelected.qty}
                           onChange={(e) => updateQty(color, e.target.value)}
                         />
-                      )}
+                      )} */}
 
                       {/* Add Size Button */}
                       <button
