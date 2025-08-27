@@ -30,6 +30,8 @@ model Product {
   cost         String?
   sub          String
   factory      String
+  views     String?
+  orders      String?
 }
 
 model Category {

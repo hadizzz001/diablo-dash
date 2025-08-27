@@ -26,6 +26,8 @@ export async function POST(req) {
       date,
       sub,
       factory,
+      views,
+      orders,
     } = body;
 
     console.log("body are: ", body);
@@ -52,8 +54,10 @@ export async function POST(req) {
         landing,
         profitAmount,
         date,
-      sub,
-      factory,
+        sub,
+        factory,
+        views,
+        orders,
       },
     });
 
@@ -95,14 +99,7 @@ export async function GET(req) {
 }
 
 
-
-
-
-
-
-
-
-
+ 
 
 
 
@@ -123,6 +120,37 @@ export async function DELETE(request, { params }) {
     return new Response(
       JSON.stringify({ error: 'Failed to delete product' }),
       { status: 500 }
+    );
+  }
+}
+
+
+
+
+
+
+
+export async function PATCH(req) {
+  try {
+    const updated = await prisma.product.updateMany({
+      data: {
+        views: "40",
+        orders: "40",
+      },
+    });
+
+    return new Response(
+      JSON.stringify({
+        message: 'All products updated successfully',
+        count: updated.count,
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  } catch (error) {
+    console.error('Error updating products:', error);
+    return new Response(
+      JSON.stringify({ error: 'Failed to update products' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 }
