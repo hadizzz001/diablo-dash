@@ -78,12 +78,7 @@ export default function Sidebar() {
               <a href="/reservation" style={{ color: "white", textDecoration: "none" }}>
                 Orders
               </a>
-            </li> 
-            <li>
-              <a href="/reservation" style={{ color: "white", textDecoration: "none" }}>
-                Orders
-              </a>
-            </li> 
+            </li>  
             <li>
               <a href="/note" style={{ color: "white", textDecoration: "none" }}>
                 Notification
