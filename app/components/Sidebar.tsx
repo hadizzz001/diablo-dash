@@ -80,8 +80,13 @@ export default function Sidebar() {
               </a>
             </li> 
             <li>
-              <a href="/arch" style={{ color: "white", textDecoration: "none" }}>
-                Archives
+              <a href="/reservation" style={{ color: "white", textDecoration: "none" }}>
+                Orders
+              </a>
+            </li> 
+            <li>
+              <a href="/note" style={{ color: "white", textDecoration: "none" }}>
+                Notification
               </a>
             </li> 
             <li>
