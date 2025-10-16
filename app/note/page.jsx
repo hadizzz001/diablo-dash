@@ -6,34 +6,33 @@ const ManageNotification = () => {
   const [formData, setFormData] = useState({ title: '', body: '' });
   const [message, setMessage] = useState('');
 
-  // Send notification
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const res = await fetch('/api/note', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token: 'ExponentPushToken[5j0jyFKqfXHScw6cQ78MeL]', // replace with your stored token
-          title: formData.title,
-          body: formData.body,
-          data: { screen: 'orders' },
-        }),
-      });
+  try {
+    const res = await fetch('/api/note', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: formData.title,
+        body: formData.body,
+        data: { screen: 'orders' }, // optional additional data
+      }),
+    });
 
-      if (res.ok) {
-        setMessage('Notification sent successfully!');
-        setFormData({ title: '', body: '' });
-      } else {
-        const errorData = await res.json();
-        setMessage(`Error: ${errorData.error}`);
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      setMessage('An error occurred while sending the notification.');
+    if (res.ok) {
+      setMessage('Notification sent successfully!');
+      setFormData({ title: '', body: '' });
+    } else {
+      const errorData = await res.json();
+      setMessage(`Error: ${errorData.error}`);
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+    setMessage('An error occurred while sending the notification.');
+  }
+};
+
 
   return (
     <div className="container mx-auto p-4">
