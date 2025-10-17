@@ -11,8 +11,8 @@ export async function POST(req) {
       return new Response(JSON.stringify({ error: 'Title and body are required' }), { status: 400 });
     }
 
-    // Fetch all saved tokens
     const tokens = await prisma.pushToken.findMany();
+    console.log("📥 All Tokens from DB:", tokens);
 
     const expo = new Expo();
     const messages = [];
@@ -37,6 +37,16 @@ export async function POST(req) {
       const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
       tickets.push(...ticketChunk);
     }
+
+    // ✅ Log which tokens were successful or failed
+    tickets.forEach((ticket, index) => {
+      const relatedToken = messages[index]?.to;
+      if (ticket.status === 'ok') {
+        console.log(`✅ Notification sent successfully to ${relatedToken}`);
+      } else {
+        console.log(`❌ Failed to send to ${relatedToken}`, ticket.details || ticket.message);
+      }
+    });
 
     return new Response(JSON.stringify({ success: true, tickets }), { status: 200 });
   } catch (err) {
